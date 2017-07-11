@@ -8,17 +8,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExploringAspCore.Controllers
 {
+    [Route("blog")]
     public class BlogController : Controller
     {
         // GET: /<controller>/
+        [Route("")]
         public IActionResult Index()
         {
             return new ContentResult { Content = "Blog" };
         }
-
-        public IActionResult Post(string id)// look at map routes in startup it coorelates
+        [Route("{year:min(2000)}/{month:range(1,12)}/{key}" )]
+        public IActionResult Post(int year, int month, string key)// look at map routes in startup it coorelates// use nullable or optional params = -1
         {
-            return new ContentResult { Content = id };
+            //if (id == null)
+            //{
+            //    return new ContentResult { Content = "null" };
+
+            //}
+            //else
+            //return new ContentResult { Content = id.ToString() };
+
+            return new ContentResult {Content = String.Format("Year {0};  Month: {1};  key:{2}",year,month,key)};
         }
     }
 }
